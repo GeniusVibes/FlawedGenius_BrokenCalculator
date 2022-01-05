@@ -6,8 +6,8 @@ class Calculator {
     }
   
     clear() {
-      this.currentOperand = ''
-      this.previousOperand = ''
+      this.currentOperand = ""
+      this.previousOperand = ""
       this.operation = undefined
     }
   
@@ -16,18 +16,18 @@ class Calculator {
     }
   
     appendNumber(number) {
-      if (number === '.' && this.currentOperand.includes('.')) return
+      if (number === "." && this.currentOperand.includes(".")) return
       this.currentOperand = this.currentOperand.toString() + number.toString()
     }
   
     chooseOperation(operation) {
-      if (this.currentOperand === '') return
-      if (this.previousOperand !== '') {
+      if (this.currentOperand === "") return
+      if (this.previousOperand !== "") {
         this.compute()
       }
       this.operation = operation
       this.previousOperand = this.currentOperand
-      this.currentOperand = ''
+      this.currentOperand = ""
     }
   
     compute() {
@@ -36,16 +36,16 @@ class Calculator {
       const current = parseFloat(this.currentOperand)
       if (isNaN(prev) || isNaN(current)) return
       switch (this.operation) {
-        case '+':
+        case "+":
           computation = prev + current
           break
-        case '-':
+        case "-":
           computation = prev - current
           break
-        case '*':
+        case "*":
           computation = prev * current
           break
-        case '÷':
+        case "÷":
           computation = prev / current
           break
         default:
@@ -53,18 +53,18 @@ class Calculator {
       }
       this.currentOperand = computation
       this.operation = undefined
-      this.previousOperand = ''
+      this.previousOperand = ""
     }
   
     getDisplayNumber(number) {
       const stringNumber = number.toString()
-      const integerDigits = parseFloat(stringNumber.split('.')[0])
-      const decimalDigits = stringNumber.split('.')[1]
+      const integerDigits = parseFloat(stringNumber.split(".")[0])
+      const decimalDigits = stringNumber.split(".")[1]
       let integerDisplay
       if (isNaN(integerDigits)) {
-        integerDisplay = ''
+        integerDisplay = ""
       } else {
-        integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
+        integerDisplay = integerDigits.toLocaleString("en", { maximumFractionDigits: 0 })
       }
       if (decimalDigits != null) {
         return `${integerDisplay}.${decimalDigits}`
@@ -80,52 +80,52 @@ class Calculator {
         this.previousOperandTextElement.innerText =
           `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
       } else {
-        this.previousOperandTextElement.innerText = ''
+        this.previousOperandTextElement.innerText = ""
       }
     }
   }
   
   
-  const numberButtons = document.querySelectorAll('[data-number]')
-  const operationButtons = document.querySelectorAll('[data-operation]')
-  const equalsButton = document.querySelector('[data-equals]')
-  const deleteButton = document.querySelector('[data-delete]')
-  const allClearButton = document.querySelector('[data-all-clear]')
-  const previousOperandTextElement = document.querySelector('[data-previous-operand]')
-  const currentOperandTextElement = document.querySelector('[data-current-operand]')
+  const numberButtons = document.querySelectorAll("[data-number]")
+  const operationButtons = document.querySelectorAll("[data-operation]")
+  const equalsButton = document.querySelector("[data-equals]")
+  const deleteButton = document.querySelector("[data-delete]")
+  const allClearButton = document.querySelector("[data-all-clear]")
+  const previousOperandTextElement = document.querySelector("[data-previous-operand]")
+  const currentOperandTextElement = document.querySelector("[data-current-operand]")
   
   const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
 
   numberButtons.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
       calculator.appendNumber(button.innerText)
       calculator.updateDisplay()
     })
   })
   
   operationButtons.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
       calculator.chooseOperation(button.innerText)
       calculator.updateDisplay()
     })
   })
 
-  equalsButton.addEventListener('click', () => {
+  equalsButton.addEventListener("click", () => {
     calculator.compute()
     calculator.updateDisplay()
   })
 
-allClearButton.addEventListener('click', button => {
+allClearButton.addEventListener("click", button => {
   calculator.clear()
   calculator.updateDisplay()
 })  
 
-deleteButton.addEventListener('click', button => {
+deleteButton.addEventListener("click", button => {
   calculator.delete()
   calculator.updateDisplay()
 })
 
-document.addEventListener('keydown', function (event) {
+document.addEventListener("keydown", function (event) {
   let patternForNumbers = /[0-9]/g;
 let patternForOperators = /[+\-*/]/g
 if (event.key.match(patternForNumbers)) {
@@ -133,7 +133,7 @@ if (event.key.match(patternForNumbers)) {
   calculator.appendNumber(event.key)
   calculator.updateDisplay()
 }
-if (event.key === '.') {
+if (event.key === ".") {
   event.preventDefault();
   calculator.appendNumber(event.key)
   calculator.updateDisplay()
@@ -143,7 +143,7 @@ if (event.key.match(patternForOperators)) {
   calculator.chooseOperation(event.key)
   calculator.updateDisplay()
 }
-if (event.key === 'Enter' || event.key === '=') {
+if (event.key === "Enter" || event.key === "=") {
   event.preventDefault();
   calculator.compute()
   calculator.updateDisplay()
@@ -153,7 +153,7 @@ if (event.key === "Backspace") {
   calculator.delete()
   calculator.updateDisplay()
 }
-if (event.key === 'Delete') {
+if (event.key === "Delete") {
   event.preventDefault();
   calculator.clear()
   calculator.updateDisplay()
