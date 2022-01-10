@@ -86,38 +86,63 @@ class Calculator {
   }
   
   
-  const numberButtons = document.querySelectorAll("[data-number]")
-  const operationButtons = document.querySelectorAll("[data-operation]")
-  const equalsButton = document.querySelector("[data-equals]")
-  const deleteButton = document.querySelector("[data-delete]")
-  const allClearButton = document.querySelector("[data-all-clear]")
-  const previousOperandTextElement = document.querySelector("[data-previous-operand]")
-  const currentOperandTextElement = document.querySelector("[data-current-operand]")
+const numberButtons = document.querySelectorAll("[data-number]")
+const operationButtons = document.querySelectorAll("[data-operation]")
+const equalsButton = document.querySelector("[data-equals]")
+const deleteButton = document.querySelector("[data-delete]")
+const allClearButton = document.querySelector("[data-all-clear]")
+const previousOperandTextElement = document.querySelector("[data-previous-operand]")
+const currentOperandTextElement = document.querySelector("[data-current-operand]")
   
-  const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
 
-  numberButtons.forEach(button => {
+numberButtons.forEach(button => {
     button.addEventListener("click", () => {
       calculator.appendNumber(button.innerText)
       calculator.updateDisplay()
     })
   })
   
-  operationButtons.forEach(button => {
+operationButtons.forEach(button => {
     button.addEventListener("click", () => {
       calculator.chooseOperation(button.innerText)
       calculator.updateDisplay()
     })
   })
 
-  equalsButton.addEventListener("click", () => {
+equalsButton.addEventListener("click", () => {
     calculator.compute()
     calculator.updateDisplay()
   })
 
+let whiteScreen = false;
+
+function toggleScreen() {
+    if (whiteScreen == false){
+      document.documentElement.style.setProperty("--background-color", "#f2f2f2");
+      document.documentElement.style.setProperty("--primary-color", "#f2f2f2");
+      document.documentElement.style.setProperty("--secondary-color", "#fff");
+      document.documentElement.style.setProperty("--primary-shadow", "#cbcbcb");
+      document.documentElement.style.setProperty("--secondary-shadow", "#fff");
+      document.documentElement.style.setProperty("--primary-output", "#26dfa7");    
+      whiteScreen = true;
+    }
+    else { 
+    document.documentElement.style.setProperty("--background-color", "#333333");
+    document.documentElement.style.setProperty("--primary-color", "#26dfa7");
+    document.documentElement.style.setProperty("--secondary-color", "#fff");
+    document.documentElement.style.setProperty("--primary-shadow", "#2b2b2b");
+    document.documentElement.style.setProperty("--secondary-shadow", "#3c3c3c");
+    document.documentElement.style.setProperty("--primary-output", "#26dfa7");
+    
+    whiteScreen = false;
+    }
+  }
+
 allClearButton.addEventListener("click", button => {
   calculator.clear()
   calculator.updateDisplay()
+  toggleScreen()
 })  
 
 deleteButton.addEventListener("click", button => {
